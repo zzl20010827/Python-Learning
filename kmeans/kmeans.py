@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import time
 
 # 设置图像中文字体为黑体
 mpl.rc("font", family="SimHei")
@@ -17,7 +18,7 @@ class kmean():
     """ k均值算法 """
 
     def __init__(self, k=5, n=100):
-        """ k均值迭代 """
+        """ k均值数据生成和初值选取 """
         # 聚类k个数和数据n个数
         self.k = k
         self.n = n
@@ -29,20 +30,23 @@ class kmean():
         mu = np.random.randint(low=0, high=self.n, size=self.k)
         self.mean = np.full((self.k, 2), 0.0)
         for i in range(0, self.k):
-            for j in (0, 1):
+            for j in [0, 1]:
                 self.mean[i, j] = self.data[mu[i], j]
+
+    def iteration(self):
+        """ 迭代 """
         # 点到均值向量的距离矩阵
-        distm = np.full((self.n, self.k), 0.0)
+        self.distm = np.full((self.n, self.k), 0.0)
         # 迭代
         iter = 500
         for t in range(0, iter):
             # 计算距离
             for i in range(0, self.n):
                 for j in range(0, self.k):
-                    distm[i, j] = dist(self.data[i, 0:2], self.mean[j, :])
+                    self.distm[i, j] = dist(self.data[i, 0:2], self.mean[j, :])
             # 分类
             for i in range(0, self.n):
-                self.data[i, 2] = np.argmin(distm[i, :])
+                self.data[i, 2] = np.argmin(self.distm[i, :])
             # 更新均值向量
             for i in range(0, self.k):
                 smean = (0.0, 0.0)
@@ -79,8 +83,11 @@ class kmean():
         plt.show()
 
 
-'''
+""" start=time.time()
 test = kmean()
+test.iteration()
 test.Loss()
 test.kmeanplt()
-'''
+# 计算运行时间
+end = time.time()
+print('运行时间: ' + str(end - start) + 's') """
