@@ -80,14 +80,16 @@ class kmean():
             plt.scatter(x, y, c=colors[i], s=10)
             plt.scatter(self.mean[i, 0], self.mean[i, 1], c=colors[i], s=100)
         plt.title("原k均值分类结果")
+        plt.savefig("C:/Users/Zhang/Desktop/原k均值结果.pdf")
         plt.show()
 
 
-""" start=time.time()
+""" # 开始计算时间
+start = time.time()
 test = kmean()
 test.iteration()
-test.Loss()
-test.kmeanplt()
-# 计算运行时间
+# 结束计算时间
 end = time.time()
-print('运行时间: ' + str(end - start) + 's') """
+test.Loss()
+print('运行时间: ' + str(end - start) + ' s')
+test.kmeanplt() """
