@@ -53,6 +53,11 @@ class impkmeans():
 
     def iteration(self):
         """ 迭代 """
+        # 记录初始解
+        initdata = self.data
+        initmean = self.mean
+        initdistm = self.distm
+        initloss = sqdLoss(initdata, initmean)
         # 初始温度、退火因子和终止温度
         T = 100
         Ttermi = 0.01
@@ -129,6 +134,12 @@ class impkmeans():
                             if num != 0:
                                 self.mean[i, :] = [i / num for i in smean]
             T = T * x
+        # 迭代完成后, 若优于初始解则采用, 否则不采用
+        loss = sqdLoss(self.data, self.mean)
+        if initloss < loss:
+            self.data = initdata
+            self.mean = initmean
+            self.distm = initdistm
 
     def Loss(self):
         """ 损失函数值 """
@@ -147,14 +158,16 @@ class impkmeans():
             plt.scatter(x, y, c=colors[i], s=10)
             plt.scatter(self.mean[i, 0], self.mean[i, 1], c=colors[i], s=100)
         plt.title("改进k均值分类结果")
+        plt.savefig("C:/Users/Zhang/Desktop/改进k均值结果.pdf")
         plt.show()
 
 
+# 开始计算时间
 start = time.time()
 test = impkmeans()
 test.iteration()
-test.Loss()
-test.impkmeanplt()
-# 计算运行时间
+# 结束计算时间
 end = time.time()
+test.Loss()
 print('运行时间: ' + str(end - start) + ' s')
+test.impkmeanplt()
