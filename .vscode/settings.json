@@ -1,8 +1,0 @@
-{
-    "python.analysis.typeCheckingMode": "basic",
-    "python.linting.pylintArgs": [
-        "--load-plugins",
-        "pylint_django",
-        "--generate-members",
-    ],
-}
