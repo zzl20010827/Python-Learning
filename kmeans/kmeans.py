@@ -84,7 +84,8 @@ class kmean():
         plt.show()
 
 
-""" # 开始计算时间
+"""
+# 开始计算时间
 start = time.time()
 test = kmean()
 test.iteration()
@@ -92,4 +93,5 @@ test.iteration()
 end = time.time()
 test.Loss()
 print('运行时间: ' + str(end - start) + ' s')
-test.kmeanplt() """
+test.kmeanplt()
+"""
